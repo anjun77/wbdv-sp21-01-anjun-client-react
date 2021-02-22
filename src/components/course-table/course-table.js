@@ -9,33 +9,25 @@ export default class CourseTable
     super(props);
   }
 
-  // state = {
-  //   courses: [
-  //     {title: "CS5610", owner:"me", lastModified: "02/15/2021"},
-  //     {title: "CS4550", owner:"me", lastModified: "02/16/2021"},
-  //     {title: "CS3200", owner:"you", lastModified: "02/14/2021"},
-  //     {title: "CS5200", owner:"you", lastModified: "02/09/2021"},
-  //       ]
-  // }
-  //
-  // addCourse = () => {
-  //   const newCourse = {
-  //     title: "New Course",
-  //     owner: "me",
-  //     lastModified: "02/15/2021"
-  //   }
-  //   this.state.courses.push(newCourse)
-  //   this.setState(this.state)
-  // }
-
   render() {
     return (
         <div>
-          <Link to="/courses/grid">
-            <i className="fas fa-2x fa-th float-right"></i>
-          </Link>
-          <h2>Course Table</h2>
           <table className="table">
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Owned by</th>
+              <th>Last modified
+              </th>
+              <th>
+                <i className="fas fa-folder"></i>
+                <i className="fas fa-sort-alpha-down"></i>
+                <Link to="/courses/grid">
+                  <i className="fas fa-th"></i>
+                </Link>
+              </th>
+            </tr>
+            </thead>
             <tbody>
             {
               this.props.courses.map((course, ndx) =>
