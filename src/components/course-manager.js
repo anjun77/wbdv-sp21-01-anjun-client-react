@@ -1,50 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import CourseTable from "./course-table/course-table";
 import CourseGrid from "./course-grid/course-grid";
 import CourseEditor from "./course-editor/course-editor";
-import {Link, Route} from "react-router-dom";
-import courseService, {findAllCourses, deleteCourse} from "../services/course-service";
+import {Link, Switch, Route} from "react-router-dom";
+import CourseService from "../services/course-service"
 
 class CourseManager extends React.Component {
   state = {
     courses: [],
-    qwe: 123,
-    sdf: 456
+    courseTitle: ''
   }
 
-  updateCourse = (course) => {
-    console.log(course)
-    courseService.updateCourse(course._id, course)
-    .then(status => this.setState((prevState) => ({
-      ...prevState,
-      courses: prevState.courses.map(
-          (c) => c._id === course._id ? course : c)
-
-      // courses: prevState.courses.map(c => {
-      //   if(c._id === course._id) {
-      //     return course
-      //   } else {
-      //     return c
-      //   }
-      // })
-    })))
+  setTitle(title) {
+    this.setState(
+        {courseTitle: title}
+    )
   }
-
-  componentDidMount = () =>
-      // findAllCourses()
-      //     .then(actualCourses => this.setState({
-      //       courses: actualCourses
-      //     }))
-      findAllCourses()
-      .then(courses => this.setState({courses}))
 
   addCourse = () => {
     const newCourse = {
-      title: "New Course",
-      owner: "New Owner",
-      lastModified: "Never"
+      title: this.state.courseTitle,
+      owner: "Me",
+      lastModified: "02/20/2021"
     }
-    courseService.createCourse(newCourse)
+    this.setTitle('');
+    CourseService.createCourse(newCourse)
     .then(course => this.setState(
         (prevState) => ({
           ...prevState,
@@ -53,35 +33,20 @@ class CourseManager extends React.Component {
             course
           ]
         })))
+  }
 
-    // this.state.courses.push(newCourse)
-    // this.setState(this.state)
+  updateCourse = (course) => {
+    CourseService.updateCourse(course._id, course)
+    .then(status => this.setState((prevState) => ({
+      ...prevState,
+      courses: prevState.courses.map(
+          (c) => c._id === course._id ? course : c)
+    })))
   }
 
   deleteCourse = (courseToDelete) => {
-    courseService.deleteCourse(courseToDelete._id)
+    CourseService.deleteCourse(courseToDelete._id)
     .then(status => {
-      // const newCourses = this.state.courses
-      //     .filter(course => course !== courseToDelete)
-      // this.setState({
-      //   courses: newCourses
-      // })
-      // this.setState((prevState) => {
-      //   // let nextState = {...prevState}
-      //   // nextState.courses =
-      //   //     prevState
-      //   //         .courses
-      //   //         .filter(course => course !== courseToDelete)
-      //
-      //   let nextState = {
-      //     ...prevState,
-      //     courses: prevState.courses.filter
-      //               (course => course !== courseToDelete)
-      //   }
-      //
-      //   return nextState
-      // })
-
       this.setState((prevState) => ({
         ...prevState,
         courses: prevState.courses.filter
@@ -90,14 +55,38 @@ class CourseManager extends React.Component {
     })
   }
 
+  componentDidMount = () =>
+      CourseService.findAllCourses()
+      .then(courses => this.setState({courses}))
+
   render() {
-    return(
+    return (
         <div>
           <Link to="/">
             <i className="fas fa-2x fa-home float-right"></i>
           </Link>
-          <h1>Course Manager</h1>
-          <button onClick={this.addCourse}>Add Course</button>
+
+          <div>
+            <div className="row">
+              <div className="col-1">
+                <i className="fa fa-2x fa-bars"></i>
+              </div>
+              <div className="col-3">
+                <h3>Course Manager</h3>
+              </div>
+              <div className="col-7">
+                <input className="form-control"
+                       onChange={(event) => this.setTitle(event.target.value)}
+                       placeholder="New Course Title"
+                       value={this.state.courseTitle}/>
+              </div>
+              <div className="col-1">
+                <i onClick={this.addCourse}
+                   className="fas fa-2x fa-plus float-right"></i>
+              </div>
+            </div>
+          </div>
+
           <Route path="/courses/table">
             <CourseTable
                 updateCourse={this.updateCourse}
@@ -106,6 +95,7 @@ class CourseManager extends React.Component {
           </Route>
           <Route path="/courses/grid">
             <CourseGrid
+                updateCourse={this.updateCourse}
                 deleteCourse={this.deleteCourse}
                 courses={this.state.courses}/>
           </Route>
