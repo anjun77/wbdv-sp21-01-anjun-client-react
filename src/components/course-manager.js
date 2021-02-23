@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import CourseTable from "./course-table/course-table";
 import CourseGrid from "./course-grid/course-grid";
 import CourseEditor from "./course-editor/course-editor";
-import {Link, Switch, Route} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import CourseService from "../services/course-service"
 
 class CourseManager extends React.Component {
@@ -62,16 +62,12 @@ class CourseManager extends React.Component {
   render() {
     return (
         <div>
-          <Link to="/">
-            <i className="fas fa-2x fa-home float-right"></i>
-          </Link>
-
-          <div>
+          <Route path="/courses/table">
             <div className="row">
               <div className="col-1">
                 <i className="fa fa-2x fa-bars"></i>
               </div>
-              <div className="col-3">
+              <div className="col-3 d-none d-lg-block">
                 <h3>Course Manager</h3>
               </div>
               <div className="col-7">
@@ -85,20 +81,21 @@ class CourseManager extends React.Component {
                    className="fas fa-2x fa-plus float-right"></i>
               </div>
             </div>
-          </div>
-
-          <Route path="/courses/table">
             <CourseTable
                 updateCourse={this.updateCourse}
                 deleteCourse={this.deleteCourse}
                 courses={this.state.courses}/>
           </Route>
+
           <Route path="/courses/grid">
-            <CourseGrid
-                updateCourse={this.updateCourse}
-                deleteCourse={this.deleteCourse}
-                courses={this.state.courses}/>
+            <div className="row">
+              <CourseGrid
+                  updateCourse={this.updateCourse}
+                  deleteCourse={this.deleteCourse}
+                  courses={this.state.courses}/>
+            </div>
           </Route>
+
           <Route path="/courses/editor"
                  render={(props) => <CourseEditor {...props}/>}>
           </Route>
@@ -108,3 +105,4 @@ class CourseManager extends React.Component {
 }
 
 export default CourseManager
+
