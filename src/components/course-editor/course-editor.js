@@ -3,46 +3,19 @@ import {Link} from "react-router-dom";
 import "./course-editor.css"
 
 const CourseEditor = ({history}) =>
-    <div className="container">
-      <h2>CS5610 - WebDev</h2>
-      <div className="row">
-        <div className="col-sm-4">
-          <ul className="list-group">
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 1 - jQuery
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 2 - React
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 3 - Redux
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 4 - Native
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 5 - Angular
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 6 - Node
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              Module 7 - Mongo
-              <i className="fas fa-trash-alt float-right"></i>
-            </li>
-            <li className="list-group-item list-group-item-action list-group-item-dark color-teal">
-              <i className="fas fa-plus-square float-right"></i>
-            </li>
-          </ul>
-        </div>
-        <div className="col-sm-8">
-          <ul-tab className="nav nav-tabs nav-fill">
+    <div>
+      <nav
+          className="navbar navbar-expand-md navbar-dark bg-info sticky-top">
+            <div className="navbar-brand">
+              <button className="btn-light btn"
+                      onClick={() => history.goBack()}>
+                <i className="fas fa-times"></i>
+              </button>
+                CS5610 - WebDev
+            </div>
+
+        <div className="collapse navbar-collapse " id="navbar-nav-dropdown">
+          <ul className="nav nav-tabs nav-fill w-100">
             <li className="nav-item list-group-item-dark">
               <a className="nav-link" aria-current="page" href="#">Build</a>
             </li>
@@ -65,29 +38,72 @@ const CourseEditor = ({history}) =>
               <a className="nav-link" aria-current="page" href="#"></a>
               <i className="fas fa-plus-square center"></i>
             </li>
-          </ul-tab>
+          </ul>
+        </div>
+      </nav>
 
-          <ul-pill className="nav nav-pills">
-            <li className="nav-item list-group-item-dark">
+      <div className="row">
+        <div className="col-4">
+          <ul className="list-group">
+            <li className="list-group-item list-group-item-action ">
+              Module 1 - jQuery
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item active list-group-item-action">
+              Module 2 - React
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item list-group-item-action">
+              Module 3 - Redux
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item list-group-item-action">
+              Module 4 - Native
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item list-group-item-action">
+              Module 5 - Angular
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item list-group-item-action">
+              Module 6 - Node
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item list-group-item-action">
+              Module 7 - Mongo
+              <i className="fas fa-trash-alt float-right"></i>
+            </li>
+            <li className="list-group-item list-group-item-action">
+              <i className="fas fa-plus-square float-right"></i>
+            </li>
+          </ul>
+        </div>
+
+
+        <div className="col-8">
+          <ul className="nav nav-tabs nav-fill w-100">
+            <li className="nav-item ">
               <a className="nav-link" aria-current="page" href="#">Topic 1</a>
             </li>
-            <li className="nav-item list-group-item-dark">
+            <li className="nav-item">
               <a className="nav-link active" href="#">Topic 2</a>
             </li>
-            <li className="nav-item list-group-item-dark">
+            <li className="nav-item">
               <a className="nav-link" href="#">Topic 3</a>
             </li>
-            <li className="nav-item list-group-item-dark">
+            <li className="nav-item">
               <a className="nav-link" href="#">Topic 4</a>
             </li>
-            <li className="nav-item list-group-item-dark">
+            <li className="nav-item">
               <a className="nav-link" href="#"></a>
               <i className="fas fa-plus-square center"></i>
             </li>
-          </ul-pill>
+          </ul>
         </div>
       </div>
     </div>
 
 export default CourseEditor
+
+
 

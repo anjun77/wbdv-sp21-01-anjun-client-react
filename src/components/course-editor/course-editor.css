@@ -1,15 +1,10 @@
-.color-teal {
-  color:teal;
-}
 
 ul {
-  background: #7A7574;
   padding: 15px
 }
 
 ul li {
-  background: #038387;
-  margin: 6px;
+  margin: 1px;
 }
 
 .center {
@@ -20,21 +15,17 @@ ul li {
 }
 
 ul-tab {
-  background: #7A7574;
   padding: 10px
 }
 
 ul-tab li {
-  background: #7A7574;
   margin: 6px;
 }
 
 ul-pill {
-  background: white;
   padding: 5px;
 }
 
 ul-pill li {
-  background: #038387;
   margin: 6px;
 }
