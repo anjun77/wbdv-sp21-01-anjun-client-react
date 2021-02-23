@@ -89,11 +89,27 @@ class CourseManager extends React.Component {
 
           <Route path="/courses/grid">
             <div className="row">
-              <CourseGrid
-                  updateCourse={this.updateCourse}
-                  deleteCourse={this.deleteCourse}
-                  courses={this.state.courses}/>
+              <div className="col-1">
+                <i className="fa fa-2x fa-bars"></i>
+              </div>
+              <div className="col-3 d-none d-lg-block">
+                <h3>Course Manager</h3>
+              </div>
+              <div className="col-7">
+                <input className="form-control"
+                       onChange={(event) => this.setTitle(event.target.value)}
+                       placeholder="New Course Title"
+                       value={this.state.courseTitle}/>
+              </div>
+              <div className="col-1">
+                <i onClick={this.addCourse}
+                   className="fas fa-2x fa-plus float-right"></i>
+              </div>
             </div>
+            <CourseGrid
+                updateCourse={this.updateCourse}
+                deleteCourse={this.deleteCourse}
+                courses={this.state.courses}/>
           </Route>
 
           <Route path="/courses/editor"
