@@ -15,9 +15,9 @@ export default class CourseTable
           <table className="table">
             <thead>
             <tr>
-              <th>Title</th>
-              <th>Owned by</th>
-              <th>Last modified
+              <th className="d-md-table-cell">Title</th>
+              <th className="d-none d-md-table-cell">Owned by</th>
+              <th className="d-none d-lg-table-cell">Last modified
               </th>
               <th>
                 <i className="fas fa-folder"></i>

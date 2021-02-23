@@ -7,14 +7,14 @@ const CourseGrid = ({courses, deleteCourse, updateCourse}) =>
     <div>
       <table className="table">
         <thead>
-        <tr>
-          <th>
+        <tr >
+          <th className="d-none d-sm-table-cell">
             Recent Documents
           </th>
-          <th>
+          <th className="d-none d-sm-table-cell">
             Owned by me
           </th>
-          <th>
+          <th className="d-block">
             <i className="fas fa-folder"></i>
             <i className="fas fa-sort-alpha-down"></i>
             <Link to="/courses/table">

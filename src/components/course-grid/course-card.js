@@ -15,7 +15,7 @@ const CourseCard = ({course, deleteCourse, updateCourse}) => {
   }
 
   return (
-      <div className="col-4">
+      <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
         <div className="card">
           {editing && <i onClick={() => saveTitle()}
                          className="fas fa-check"></i>}
