@@ -1,7 +1,7 @@
 const MODULES_URL = "https://wbdv-generic-server.herokuapp.com/api/anjun/modules";
 const LESSONS_URL = "https://wbdv-generic-server.herokuapp.com/api/anjun/lessons";
 
-export const createLessonForModule = (moduleId, lesson) =>
+export const createLesson = (moduleId, lesson) =>
     fetch(`${MODULES_URL}/${moduleId}/lessons`, {
       method: "POST",
       body: JSON.stringify(lesson),
@@ -12,11 +12,11 @@ export const createLessonForModule = (moduleId, lesson) =>
     .then(response => response.json())
 
 export const findLessonsForModule = (moduleId) =>
-    fetch(`${LESSONS_URL}/${moduleId}/lessons`)
+    fetch(`${MODULES_URL}/${moduleId}/lessons`)
     .then(response => response.json())
 
 export const updateLesson = (lessonId, lesson) =>
-    fetch(`${MODULES_URL}/${lessonId}`, {
+    fetch(`${LESSONS_URL}/${lessonId}`, {
       method: "PUT",
       body: JSON.stringify(lesson),
       headers: {
@@ -33,7 +33,7 @@ export const deleteLesson = (lessonId) =>
 
 export default {
   findLessonsForModule,
-  createLessonForModule,
+  createLesson,
   updateLesson,
   deleteLesson
 }

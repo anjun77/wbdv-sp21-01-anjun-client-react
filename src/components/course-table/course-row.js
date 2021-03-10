@@ -27,7 +27,8 @@ const CourseRow = (
         <td>
           {
             !editing &&
-            <Link to="/courses/editor">
+            <Link to={`/courses/table/edit/${course._id}`}>
+              <i className="fa-file"></i>
               {title}
             </Link>
           }
@@ -47,6 +48,8 @@ const CourseRow = (
                           className="fas fa-edit"></i>}
           {editing && <i onClick={() => saveTitle()}
                          className="fas fa-check"></i>}
+          {editing && <i onClick={() => setEditing(false)}
+            className="fas fa-times"></i> }
         </td>
       </tr>
   )

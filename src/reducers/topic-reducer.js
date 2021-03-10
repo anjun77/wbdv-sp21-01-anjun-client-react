@@ -4,7 +4,7 @@ const initialState = {
 
 const topicReducer = (state=initialState, action) => {
   switch (action.type) {
-    case "FIND_TOPIC":
+    case "FIND_TOPICS_FOR_LESSON":
       return {
         ...state,
         topics: action.topics
@@ -20,7 +20,7 @@ const topicReducer = (state=initialState, action) => {
     case "DELETE_TOPIC":
       const newState1 = {
         topics: state.topics.filter(topic => {
-          if(topic._id === action.topicToDelete._id) {
+          if(topic._id === action.topic._id) {
             return false
           } else {
             return true
@@ -42,4 +42,4 @@ const topicReducer = (state=initialState, action) => {
       return state
   }
 }
-export default moduleReducer
+export default topicReducer

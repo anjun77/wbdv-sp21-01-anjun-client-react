@@ -3,7 +3,7 @@ import CourseTable from "./course-table/course-table";
 import CourseGrid from "./course-grid/course-grid";
 import CourseEditor from "./course-editor/course-editor";
 import {Link, Route} from "react-router-dom";
-import CourseService from "../services/course-service"
+import CourseService, {findAllCourses} from "../services/course-service"
 
 class CourseManager extends React.Component {
   state = {
@@ -16,6 +16,10 @@ class CourseManager extends React.Component {
         {courseTitle: title}
     )
   }
+
+  componentDidMount = () =>
+      CourseService.findAllCourses()
+      .then(courses => this.setState({courses}))
 
   addCourse = () => {
     const newCourse = {
@@ -55,14 +59,10 @@ class CourseManager extends React.Component {
     })
   }
 
-  componentDidMount = () =>
-      CourseService.findAllCourses()
-      .then(courses => this.setState({courses}))
-
   render() {
     return (
         <div>
-          <Route path="/courses/table">
+          <Route path="/courses/table" exact={true}>
             <div className="row">
               <div className="col-1">
                 <i className="fa fa-2x fa-bars"></i>
@@ -87,7 +87,7 @@ class CourseManager extends React.Component {
                 courses={this.state.courses}/>
           </Route>
 
-          <Route path="/courses/grid">
+          <Route path="/courses/grid" exact={true}>
             <div className="row">
               <div className="col-1">
                 <i className="fa fa-2x fa-bars"></i>
@@ -112,7 +112,12 @@ class CourseManager extends React.Component {
                 courses={this.state.courses}/>
           </Route>
 
-          <Route path="/courses/editor"
+          <Route path={[
+            "/courses/:layout/edit/:courseId",
+            "/courses/:layout/edit/:courseId/:moduleId",
+            "/courses/:layout/edit/:courseId/:moduleId/:lessonId",
+            "/courses/:layout/edit/:courseId/:moduleId/:lessonId/:topicId"]}
+                 exact={true}
                  render={(props) => <CourseEditor {...props}/>}>
           </Route>
         </div>
