@@ -17,6 +17,8 @@ const TopicPills = (
   useEffect(() => {
     if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
       findTopicsForLesson(lessonId)
+    }else{
+      findTopicsForLesson("null")
     }
   }, [lessonId])
   return (
@@ -36,7 +38,7 @@ const TopicPills = (
           }
           <li>
             <i onClick={() => createTopic(lessonId)}
-               className="fas fa-plus fa-2x justify-content-center my-fa-plus"></i>
+               className="fas fa-plus fa-2x my-fa-plus"></i>
           </li>
         </ul>
       </div>)

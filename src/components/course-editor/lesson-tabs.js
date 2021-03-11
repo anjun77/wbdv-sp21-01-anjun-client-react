@@ -17,6 +17,8 @@ const LessonTabs = (
   useEffect(() => {
     if (moduleId !== "undefined" && typeof moduleId !== "undefined") {
       findLessonsForModule(moduleId)
+    }else{
+      findLessonsForModule("null")
     }
   }, [moduleId])
   return (
