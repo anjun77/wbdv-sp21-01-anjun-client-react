@@ -1,3 +1,4 @@
+import {CREATE_MODULE, DELETE_MODULE, FIND_MODULES_FOR_COURSE, UPDATE_MODULE} from "../actions/module-actions";
 const initialState = {
   modules: []
 }
@@ -9,37 +10,38 @@ const moduleReducer = (state=initialState, action) => {
         ...state,
         modules: action.modules
       }
+    default:
+      return state
     case "CREATE_MODULE":
-      const newState = {
+      return {
+        ...state,
         modules: [
           ...state.modules,
           action.module
         ]
       }
-      return newState
     case "DELETE_MODULE":
-      const newState1 = {
+      return {
+        ...state,
         modules: state.modules.filter(module => {
-          if(module._id === action.moduleToDelete._id) {
-            return false
-          } else {
+          if(module._id !== action.moduleToDelete._id) {
             return true
+          } else {
+            return false
           }
         })
       }
-      return newState1
     case "UPDATE_MODULE":
       return {
-        modules: state.modules.map(m => {
-          if(m._id === action.module._id) {
-            return action.module
+        ...state,
+        modules: state.modules.map(module => {
+          if(module._id === action.updateModule._id) {
+            return action.updateModule
           } else {
-            return m
+            return module
           }
         })
       }
-    default:
-      return state
   }
 }
 export default moduleReducer
