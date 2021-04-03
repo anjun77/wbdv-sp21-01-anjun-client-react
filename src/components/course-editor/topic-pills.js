@@ -17,7 +17,7 @@ const TopicPills = (
   useEffect(() => {
     if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
       findTopicsForLesson(lessonId)
-    }else{
+    } else {
       findTopicsForLesson("null")
     }
   }, [lessonId])
@@ -26,13 +26,14 @@ const TopicPills = (
         <ul className="nav nav-pills">
           {
             topics.map(topic =>
-                <li className="nav nav-item">
+                <li className="nav nav-item" key={topic._id}>
                   <EditableItem
                       to={`/courses/${layout}/edit/${courseId}/${moduleId}/${lessonId}/${topic._id}`}
                       updateItem={updateTopic}
                       deleteItem={deleteTopic}
                       active={topic._id === topicId}
-                      item={topic}/>
+                      item={topic}
+                      type="topic"/>
                 </li>
             )
           }

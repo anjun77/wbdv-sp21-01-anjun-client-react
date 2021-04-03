@@ -1,18 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const ListWidget = ({widget, setWidget, editing}) => {
+const ListWidget = ({widget, updateWidget, deleteWidget}) => {
+  const [widgetCache, setWidgetCache] = useState(widget)
+  const [editing, setEditing] = useState(false)
+
   return (
-      <div>
-        <h2>List Widget</h2>
+      <>
+        {
+          editing &&
+          <>
+            <i onClick={() => {
+              updateWidget(widgetCache.id, widgetCache)
+              setEditing(false)
+            }} className="fas fa-check float-right"/>
+
+            <i onClick={() => {
+              deleteWidget(widget)
+              setEditing(false)
+            }} className="fas fa-trash float-right"/>
+
+            <input onChange={(e) => setWidgetCache(
+                widgetCache => ({...widgetCache, ordered: e.target.checked}))}
+                   checked={widgetCache.ordered}
+                   type="checkbox"/> Ordered
+            <br/>
+
+            List Items
+            <textarea onChange={(e) => setWidgetCache(
+                widgetCache => ({...widgetCache, text: e.target.value}))}
+                      rows={10}
+                      value={widgetCache.text}
+                      className="form-control">
+                    </textarea>
+
+          </>
+        }
         {
           !editing &&
           <>
+            <i onClick={() => setEditing(true)} className="fas fa-cog"/>
             {
-              widget.ordered &&
+              widgetCache.ordered &&
               <ol>
                 {
                   widget.text.split("\n").map(item => {
-                    return(
+                    return (
                         <li>{item}</li>
                     )
                   })
@@ -24,7 +56,7 @@ const ListWidget = ({widget, setWidget, editing}) => {
               <ul>
                 {
                   widget.text.split("\n").map(item => {
-                    return(
+                    return (
                         <li>{item}</li>
                     )
                   })
@@ -33,19 +65,7 @@ const ListWidget = ({widget, setWidget, editing}) => {
             }
           </>
         }
-        {
-          editing &&
-          <div>
-            <input type="checkbox"/> Ordered
-            <br/>
-            List Items
-            <textarea rows={10} value={widget.text} className="form-control">
-
-                    </textarea>
-          </div>
-        }
-        {/*<textarea></textarea>*/}
-      </div>
+      </>
   )
 }
 

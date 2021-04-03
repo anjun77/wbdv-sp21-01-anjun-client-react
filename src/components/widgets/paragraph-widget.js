@@ -12,6 +12,8 @@ const ParagraphWidget = ({widget, updateWidget, deleteWidget}) => {
                   value={widgetCache.type} className="form-control">
             <option value={"PARAGRAPH"}>Paragraph</option>
             <option value={"HEADING"}>Heading</option>
+            <option value={"LIST"}>List</option>
+            <option value={"IMAGE"}>Image</option>
           </select>
           <br/>
           <textarea
