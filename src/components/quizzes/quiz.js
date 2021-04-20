@@ -23,13 +23,13 @@ const Quiz = () => {
   useEffect(() => {
     QuizService.findQuizById(quizId)
     .then((quiz) => {
-          setQuiz(quiz)
-        }
-    )
+      setQuiz(quiz)
+    })
     QuestionService.findQuestionsForQuiz(quizId)
     .then((questions) => {
       setQuestions(questions)
     })
+
   }, [])
 
   return (
@@ -37,7 +37,7 @@ const Quiz = () => {
         <h3>{quiz.title} </h3>
         <ul className={"list-group"}>
           {
-            questions.product.map((question) => {
+            questions.map((question) => {
               return (
                   <li className={"list-group-item border-top"}>
                     <Question question={question}
