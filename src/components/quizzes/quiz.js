@@ -27,8 +27,8 @@ const Quiz = () => {
         }
     )
     QuestionService.findQuestionsForQuiz(quizId)
-    .then((res) => {
-      setQuestions(res)
+    .then((questions) => {
+      setQuestions(questions)
     })
   }, [])
 
