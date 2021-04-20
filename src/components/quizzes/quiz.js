@@ -15,7 +15,7 @@ const Quiz = () => {
   const findAttempt = () => {
     AttemptService.findAttemptsForQuiz(quizId)
     .then((attempts) => {
-      setAttempts(attempts)
+          setAttempts(attempts)
         }
     )
   }
@@ -23,7 +23,7 @@ const Quiz = () => {
   useEffect(() => {
     QuizService.findQuizById(quizId)
     .then((quiz) => {
-      setQuiz(quiz)
+          setQuiz(quiz)
         }
     )
     QuestionService.findQuestionsForQuiz(quizId)
@@ -32,16 +32,16 @@ const Quiz = () => {
     })
   }, [])
 
-  return(
+  return (
       <div>
         <h3>{quiz.title} </h3>
         <ul className={"list-group"}>
           {
-            questions.map((question) => {
-              return(
+            questions.product.map((question) => {
+              return (
                   <li className={"list-group-item border-top"}>
                     <Question question={question}
-                              isGraded = {isGraded}
+                              isGraded={isGraded}
                     />
                   </li>
               )
@@ -50,11 +50,12 @@ const Quiz = () => {
         </ul>
         <div type="button" className="btn btn-success" onClick={() => {
           setGrade(true)
-          QuizService.submitQuiz(quiz._id,questions).then((attempt)=> {
+          QuizService.submitQuiz(quiz._id, questions).then((attempt) => {
             findAttempt();
             setCurrentAttempt(attempt)
           })
-        }}>Submit</div>
+        }}>Submit
+        </div>
 
         {
           isGraded &&
@@ -67,13 +68,15 @@ const Quiz = () => {
               <h6>Past Attempt:</h6>
             }
             {
-              attempts.filter((attempt) => attempt._id !== currentAttempt._id).map((attempt) => {
-                return (
-                    <li className={"list-group-item"}>
-                      <h6>Score : {attempt.score}</h6>
-                    </li>
-                )
-              })
+              attempts.filter(
+                  (attempt) => attempt._id !== currentAttempt._id).map(
+                  (attempt) => {
+                    return (
+                        <li className={"list-group-item"}>
+                          <h6>Score : {attempt.score}</h6>
+                        </li>
+                    )
+                  })
             }
           </ul>
         }
