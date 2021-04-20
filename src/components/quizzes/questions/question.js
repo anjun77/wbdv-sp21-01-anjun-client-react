@@ -2,16 +2,16 @@ import React from "react";
 import TrueFalseQuestion from "./true-false-question";
 import MultipleChoiceQuestion from "./multiple-choice-question";
 
-const Question = ({question, isGraded}) => {
+const Question = ({question, gradeStatus}) => {
   return (
       <div>
         {
           question.type === "TRUE_FALSE" &&
-          <TrueFalseQuestion question={question} isGraded={isGraded}/>
+          <TrueFalseQuestion question={question} gradeStatus={gradeStatus}/>
         }
         {
           question.type === "MULTIPLE_CHOICE" &&
-          <MultipleChoiceQuestion question={question} isGraded={isGraded}/>
+          <MultipleChoiceQuestion question={question} gradeStatus={gradeStatus}/>
         }
       </div>
   )
