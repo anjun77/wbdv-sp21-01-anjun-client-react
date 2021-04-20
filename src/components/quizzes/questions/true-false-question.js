@@ -67,14 +67,14 @@ const TrueFalseQuestion = ({question}) => {
           Your answer: {yourAnswer}
         </p>
 
-        <button type="button"
-                className="btn btn-success"
-                onClick={() => {
-                  setGrade(true)
-                }
-                }>
-          Grade
-        </button>
+        {/*<button type="button"*/}
+        {/*        className="btn btn-success"*/}
+        {/*        onClick={() => {*/}
+        {/*          setGrade(true)*/}
+        {/*        }*/}
+        {/*        }>*/}
+        {/*  Grade*/}
+        {/*</button>*/}
       </div>
   )
 }

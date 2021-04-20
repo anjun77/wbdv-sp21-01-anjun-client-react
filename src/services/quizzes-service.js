@@ -1,7 +1,8 @@
-const QUIZZES_URL = 'http://localhost:4000/api/quizzes'
+// const QUIZZES_URL = 'http://localhost:4000/api/quizzes'
+const QUIZZES_URL = 'https://morning-depths-12919.herokuapp.com/api/quizzes'
 
 const findAllQuizzes = () => {
-  return fetch(QUIZZES_URL)
+  return fetch(`${QUIZZES_URL}`)
   .then(response => response.json())
 }
 
