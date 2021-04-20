@@ -1,34 +1,50 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import Question from "./questions/question";
+import QuestionService from "../../services/question-service"
+import QuizzesService from "../../services/quizzes-service"
 
 const Quiz = () => {
-  const {quizId} = useParams()
+  const {courseId, quizId} = useParams()
   const [questions, setQuestions] = useState([])
+  const [attempts, setAttempts] = useState([])
+
   useEffect(() => {
-    //move to service file
-    fetch(`http://localhost:4000/api/quizzes/${quizId}/questions`)
-    .then(response => response.json())
-    .then((questions) => {
-      setQuestions(questions)
+    QuestionService.findQuestionsForQuiz(quizId)
+    .then((res) => {
+      setQuestions(res)
     })
   }, [])
-  return (
+
+  return(
       <div>
-        <h3>Quiz</h3>
+        <h2>Quiz {quizId}</h2>
         <ul>
           {
-            questions.map((question) => {
-              return (
-                  <li>
-                    <Question question={question}/>
-                  </li>
-              )
-            })
+            questions.map(question =>
+                <li>
+                  <Question question={question}/>
+                  {question.answer}
+                </li>)
           }
         </ul>
+        <button onClick={() => {
+          QuizzesService.submitQuiz(quizId, questions)
+          setAttempts(true)
+        }}>
+          Submit
+        </button>
+        <br/>
+        <br/>
+        {
+          attempts &&
+          <div className="row">
+            <h6>Quiz submitted</h6>
+          </div>
+        }
+        <br/>
       </div>
-  )
+  );
 }
 
 export default Quiz;
