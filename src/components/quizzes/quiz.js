@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom"
 import Question from "./questions/question";
 import questionService from "../../services/question-service"
-import quizService from "../../services/quiz-service"
-import attemptService from "../../services/attempt-service"
+import quizService from "../../services/quizzes-service"
+import attemptService from "../../services/attemp-service"
 
 const Quiz = () => {
   const {quizId} = useParams()
