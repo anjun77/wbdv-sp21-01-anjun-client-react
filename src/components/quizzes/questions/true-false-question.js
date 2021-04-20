@@ -1,27 +1,27 @@
 import React, {useState} from "react";
 import "../../../index.css"
 
-const TrueFalseQuestion = ({question}) => {
+const TrueFalseQuestion = ({question, gradeStatus}) => {
   const [yourAnswer, setAnswer] = useState(null);
-  const [grade, setGrade] = useState(false);
+
   return (
       <div>
         <h4>
           {question.question}
           {
-            grade && yourAnswer === question.correct &&
+            gradeStatus && yourAnswer === question.correct &&
             <i className="fas fa-check my-fa-check float-right"></i>
           }
           {
-            grade && yourAnswer !== question.correct && yourAnswer !== "" &&
+            gradeStatus && yourAnswer !== question.correct && yourAnswer !== "" &&
             <i className="fas fa-times my-fa-times float-right"></i>
           }
         </h4>
 
         <ul className="list-group">
           <li className={`list-group-item
-         ${grade && question.correct === "true" ? "list-group-item-success" : ""}
-         ${grade && question.correct != "true" && yourAnswer === "true" ? "list-group-item-danger" : ""}
+         ${gradeStatus && question.correct === "true" ? "list-group-item-success" : ""}
+         ${gradeStatus && question.correct != "true" && yourAnswer === "true" ? "list-group-item-danger" : ""}
          `}>
             <label>
               <input
@@ -31,19 +31,19 @@ const TrueFalseQuestion = ({question}) => {
               True
             </label>
             {
-              grade && question.correct === "true" &&
+              gradeStatus && question.correct === "true" &&
               <i className="fas fa-check my-fa-check float-right"></i>
             }
             {
-              grade && question.correct !== "true" && yourAnswer === "true" &&
+              gradeStatus && question.correct !== "true" && yourAnswer === "true" &&
               <i className="fas fa-times my-fa-times float-right"></i>
             }
           </li>
 
           <li className={`list-group-item
-         ${grade && question.correct === "false" ? "list-group-item-success"
+         ${gradeStatus && question.correct === "false" ? "list-group-item-success"
               : ""}
-         ${grade && question.correct !== "false" && yourAnswer === "false"
+         ${gradeStatus && question.correct !== "false" && yourAnswer === "false"
               ? "list-group-item-danger" : ""}
          `}>
             <label>
@@ -54,11 +54,11 @@ const TrueFalseQuestion = ({question}) => {
               False
             </label>
             {
-              grade && question.correct === "false" &&
+              gradeStatus && question.correct === "false" &&
               <i className="fas fa-check my-fa-check float-right"></i>
             }
             {
-              grade && question.correct !== "false" && yourAnswer === "false" &&
+              gradeStatus && question.correct !== "false" && yourAnswer === "false" &&
               <i className="fas fa-times my-fa-times float-right"></i>
             }
           </li>

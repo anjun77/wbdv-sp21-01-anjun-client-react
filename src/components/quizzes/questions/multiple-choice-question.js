@@ -1,19 +1,19 @@
 import React, {useState} from "react";
 
-const MultipleChoiceQuestion = ({question}) => {
+const MultipleChoiceQuestion = ({question, gradeStatus}) => {
   const [yourAnswer, setYourAnswer] = useState("")
-  const [grade, setGrade] = useState("")
+
   return (
       <div>
         <h4>
           {question.question}
           {
-            grade &&
+            gradeStatus &&
             question.correct === yourAnswer &&
             <i className="fas fa-check my-fa-check float-right"></i>
           }
           {
-            grade &&
+            gradeStatus &&
             question.correct !== yourAnswer &&
             <i className="fas fa-times my-fa-times float-right"></i>
           }
@@ -24,9 +24,9 @@ const MultipleChoiceQuestion = ({question}) => {
               return (
                   //todo: show green or red color depending on answer
                   <li className={`list-group-item
-                  ${grade && question.correct === choice
+                  ${gradeStatus && question.correct === choice
                       ? "list-group-item-success" : ""}
-                  ${grade && question.correct !== choice && yourAnswer
+                  ${gradeStatus && question.correct !== choice && yourAnswer
                   === choice ? "list-group-item-danger" : ""}
                   `}>
                     <label>
@@ -40,11 +40,11 @@ const MultipleChoiceQuestion = ({question}) => {
                       {choice}
                     </label>
                     {
-                      grade && question.correct === choice &&
+                      gradeStatus && question.correct === choice &&
                       <i className="fas fa-check my-fa-check float-right"></i>
                     }
                     {
-                      grade && question.correct !== choice && yourAnswer
+                      gradeStatus && question.correct !== choice && yourAnswer
                       === choice &&
                       <i className="fas fa-times my-fa-times float-right"></i>
                     }
