@@ -36,7 +36,7 @@ const Quiz = () => {
           {
             questions.map((question) => {
               return(
-                  <li className={"list-group-item my-3 border-top"}>
+                  <li className={"list-group-item border-top"}>
                     <Question question={question}
                               gradeStatus = {gradeStatus}
                     />
@@ -45,7 +45,7 @@ const Quiz = () => {
             })
           }
         </ul>
-        <div type="button" className="btn btn-success my-3" onClick={() => {
+        <div type="button" className="btn btn-success" onClick={() => {
           beginGrade(true)
           quizService.submitQuiz(quiz._id,questions).then((attempt)=> {
             findAttempt();
@@ -56,18 +56,17 @@ const Quiz = () => {
         {
           gradeStatus &&
 
-          <ul className={"list-group my-2"}>
+          <ul className={"list-group"}>
             <h6>Current Score : {currentAttempt.score}</h6>
 
             {
               attempts.length > 1 &&
-              <h6>Past Attempt:</h6>
+              <h6>Previous Attempt:</h6>
             }
             {
               attempts.filter((attempt) => attempt._id !== currentAttempt._id).map((attempt) => {
                 return (
                     <li className={"list-group-item"}>
-                      <h6>Attempt Time : {attempt.createdAt}</h6>
                       <h6>Score : {attempt.score}</h6>
                     </li>
                 )
