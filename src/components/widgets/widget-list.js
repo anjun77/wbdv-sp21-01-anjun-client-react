@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from "react-router-dom";
-import HeadingWidget from "./heading-widget";
-import ParagraphWidget from "./paragraph-widget";
-import ListWidget from "./list-widget"
-import ImageWidget from "./image-widget"
+import Widget from "./widget"
 import {connect} from "react-redux"
-import widgetActions, {updateWidget} from "../../actions/widget-actions";
+import widgetActions from "../../actions/widget-actions";
 
 const WidgetList = (
     {
@@ -13,51 +10,50 @@ const WidgetList = (
       createWidget,
       deleteWidget,
       updateWidget,
-      findWidgetsForTopic
+      findWidgetsForTopic,
+      clearWidgets
     }) => {
   const {topicId} = useParams();
+  const [editingWidget, setEditingWidget] = useState({})
   useEffect(() => {
-    findWidgetsForTopic(topicId)
-  }, [findWidgetsForTopic, topicId])
+    if (topicId !== "undefined" && typeof topicId !== "undefined") {
+      findWidgetsForTopic(topicId)
+    } else {
+      clearWidgets()
+    }
+  }, [topicId])
 
   return (
+      topicId !== "undefined" && typeof topicId !== "undefined" &&
       <div>
-        <i onClick={() => createWidget(topicId)}
-           className="fas fa-plus fa-2x my-fa-plus"></i>
+        <i onClick={() => createWidget(topicId)} className="fas fa-plus fa-2x float-right my-fa-plus"></i>
         <ul className="list-group">
           {
             widgets.map(widget =>
                 <li className="list-group-item" key={widget.id}>
                   {
-                    widget.type === "HEADING" &&
-                    <HeadingWidget
-                        updateWidget={updateWidget}
-                        deleteWidget={deleteWidget}
-                        widget={widget}/>
-                  }
+                    editingWidget.id === widget.id &&
+                    <>
+                      <i onClick={() => {
 
-                  {
-                    widget.type === "PARAGRAPH" &&
-                    <ParagraphWidget
-                        updateWidget={updateWidget}
-                        deleteWidget={deleteWidget}
-                        widget={widget}/>
-                  }
+                        updateWidget(editingWidget).then(
+                            setEditingWidget({})
+                        )
+                      }
+                      } className="fas fa-check fa-2x float-right my-fa-check"></i>
+                      <i onClick={() => deleteWidget(widget)} className="fas fa-trash fa-2x float-right"></i>
 
-                  {
-                    widget.type === "LIST" &&
-                    <ListWidget
-                        updateWidget={updateWidget}
-                        deleteWidget={deleteWidget}
-                        widget={widget}/>
+                    </>
                   }
                   {
-                    widget.type === "IMAGE" &&
-                    <ImageWidget
-                        updateWidget={updateWidget}
-                        deleteWidget={deleteWidget}
-                        widget={widget}/>
+                    editingWidget.id !== widget.id &&
+                    <i onClick={() => setEditingWidget(widget)} className="fas fa-cog fa-2x float-right"></i>
                   }
+                  <br></br>
+                  <Widget
+                      editing={editingWidget.id === widget.id}
+                      setEditingWidget={setEditingWidget}
+                      widget={editingWidget.id === widget.id ? editingWidget : widget}/>
                 </li>
             )
           }
@@ -72,23 +68,24 @@ const stpm = (state) => {
   }
 }
 
-const dtpm = (dispatch) => {
-  return {
-    createWidget: (topicId) => {
-      if (topicId !== undefined) {
-        widgetActions.createWidget(dispatch, topicId)
-      } else{
-        alert("Select a topic first")
-      }
-    },
-    updateWidget: (wid, widget) => widgetActions.updateWidget(dispatch,
-        wid, widget),
-    deleteWidget: (widgetToDelete) => widgetActions.deleteWidget(dispatch,
-        widgetToDelete),
-    findWidgetsForTopic: (topicId) => widgetActions.findWidgetsForTopic(
-        dispatch, topicId)
+const dtpm = (dispatch) => ({
+  createWidget: (topicId) => {
+    if (topicId !== undefined) {
+      widgetActions.createWidget(dispatch, topicId)
+    } else {
+      alert("Select a topic first")
+    }
+  },
+  updateWidget: async (newItem) => await widgetActions.updateWidget(dispatch,
+      newItem),
+  deleteWidget: (widgetToDelete) => widgetActions.deleteWidget(dispatch,
+      widgetToDelete),
+  findWidgetsForTopic: (topicId) => widgetActions.findWidgetsForTopic(
+      dispatch, topicId),
+  clearWidgets: () => {
+    widgetActions.clearWidgets(dispatch)
   }
-}
+})
 
 export default connect(stpm, dtpm)
 (WidgetList)

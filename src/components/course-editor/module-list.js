@@ -1,10 +1,9 @@
-import React, {useEffect} from 'react'
-import {connect} from 'react-redux'
+import React, {useEffect, useState} from 'react'
+import {connect, Provider} from 'react-redux'
 import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom";
-import moduleService from "../../services/module-service"
 import "../../index.css"
-import moduleActions from "../actions/module-actions";
+import moduleActions from "../../actions/module-actions";
 
 const ModuleList = (
     {
@@ -17,26 +16,23 @@ const ModuleList = (
   const {layout, courseId, moduleId} = useParams();
   useEffect(() => {
     findModulesForCourse(courseId)
-  }, [])
+  }, [moduleId])
   return (
       <div>
         <ul className="list-group">
           {
             myModules.map(module =>
-                <li className={`list-group-item ${module._id === moduleId
-                    ? 'active' : ''}`}
-                key={module._id}>
-                  <EditableItem
-                      to={`/courses/${layout}/edit/${courseId}/${module._id}`}
-                      updateItem={updateModule}
-                      deleteItem={deleteModule}
-                      active={true}
-                      item={module}
-                      type="module"/>
-                </li>
+                <EditableItem
+                    key = {module._id}
+                    to={`/courses/${layout}/edit/${courseId}/modules/${module._id}`}
+                    deleteItem={deleteModule}
+                    updateItem={updateModule}
+                    active={module._id === moduleId}
+                    type = {'module'}
+                    item={module}/>
             )
           }
-          <li className="list-group-item">
+          <li className="list-group-item my-list-group-item">
             <i onClick={() => createModule(courseId)}
                className="fas fa-plus fa-2x d-flex justify-content-center my-fa-plus"></i>
           </li>

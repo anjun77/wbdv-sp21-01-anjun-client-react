@@ -4,39 +4,45 @@ const initialState = {
 
 const topicReducer = (state=initialState, action) => {
   switch (action.type) {
-    case "FIND_TOPICS_FOR_LESSON":
+    case "CREATE_TOPIC":
       return {
         ...state,
-        topics: action.topics
-      }
-    case "CREATE_TOPIC":
-      const newState = {
         topics: [
           ...state.topics,
           action.topic
         ]
       }
-      return newState
+    case "FIND_TOPICS_FOR_LESSON":
+      return {
+        ...state,
+        topics: action.topics
+      }
+
     case "DELETE_TOPIC":
-      const newState1 = {
+      return {
+        ...state,
         topics: state.topics.filter(topic => {
-          if(topic._id === action.topic._id) {
+          if(topic._id === action.topicToDelete._id) {
             return false
           } else {
             return true
           }
         })
       }
-      return newState1
     case "UPDATE_TOPIC":
       return {
+        ...state,
         topics: state.topics.map(t => {
-          if(t._id === action.topic._id) {
-            return action.topic
+          if(t._id === action.updateTopic._id) {
+            return action.updateTopic
           } else {
             return t
           }
         })
+      }
+    case "CLEAR_TOPIC":
+      return {
+        initialState
       }
     default:
       return state

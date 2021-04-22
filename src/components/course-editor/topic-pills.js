@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom";
-import topicService from "../../services/topic-service"
+import topicActions from "../../actions/topic-actions";
 import "../../index.css"
 
 const TopicPills = (
@@ -11,38 +11,40 @@ const TopicPills = (
       createTopic,
       deleteTopic,
       updateTopic,
-      findTopicsForLesson
+      findTopicsForLesson,
+      clearTopics
     }) => {
   const {layout, courseId, moduleId, lessonId, topicId} = useParams();
   useEffect(() => {
-    if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
+    if (lessonId !== "undefined" && typeof lessonId !== "undefined" &&
+        moduleId !== "undefined" && typeof moduleId !== "undefined"
+    ) {
       findTopicsForLesson(lessonId)
     } else {
-      findTopicsForLesson("null")
+      clearTopics();
     }
-  }, [lessonId])
+  }, [moduleId, lessonId])
   return (
-      <div>
-        <ul className="nav nav-pills">
-          {
-            topics.map(topic =>
-                <li className="nav nav-item" key={topic._id}>
-                  <EditableItem
-                      to={`/courses/${layout}/edit/${courseId}/${moduleId}/${lessonId}/${topic._id}`}
-                      updateItem={updateTopic}
-                      deleteItem={deleteTopic}
-                      active={topic._id === topicId}
-                      item={topic}
-                      type="topic"/>
-                </li>
-            )
-          }
-          <li>
-            <i onClick={() => createTopic(lessonId)}
-               className="fas fa-plus fa-2x my-fa-plus"></i>
-          </li>
-        </ul>
-      </div>)
+      <>
+        {
+          topics.map(topic =>
+              <EditableItem
+                  key = {topic._id}
+                  to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${topic._id}`}
+                  deleteItem={deleteTopic}
+                  updateItem={updateTopic}
+                  active={topicId === topic._id}
+                  type={'topic'}
+                  item={topic}/>
+          )
+        }
+        <div className="my-item">
+          <i className="fas fa-plus my-fa-plus float-right"
+          onClick={() => createTopic(lessonId)}></i>
+        </div>
+
+      </>
+      )
 }
 
 const stpm = (state) => {
@@ -50,36 +52,23 @@ const stpm = (state) => {
     topics: state.topicReducer.topics
   }
 }
-const dtpm = (dispatch) => {
-  return {
-    createTopic: (lessonId) => {
-      topicService.createTopic(lessonId, {title: "New Topic"})
-      .then(topic => dispatch({
-        type: "CREATE_TOPIC",
-        topic
-      }))
-    },
-    deleteTopic: (topic) =>
-        topicService.deleteTopic(topic._id)
-        .then(status => dispatch({
-          type: "DELETE_TOPIC",
-          topic
-        })),
-    updateTopic: (topic) =>
-        topicService.updateTopic(topic._id, topic)
-        .then(status => dispatch({
-          type: "UPDATE_TOPIC",
-          topic
-        })),
-    findTopicsForLesson: (lessonId) => {
-      topicService.findTopicsForLesson(lessonId)
-      .then(topics => dispatch({
-        type: "FIND_TOPICS_FOR_LESSON",
-        topics
-      }))
-    }
+const dtpm = (dispatch) => ({
+  createTopic: (lessonId) => {
+    topicActions.createTopic(dispatch, lessonId)
+  },
+  deleteTopic: (topicToDelete) => {
+    topicActions.deleteTopic(dispatch, topicToDelete)
+  },
+  updateTopic: (newTopic) => {
+    topicActions.updateTopic(dispatch, newTopic)
+  },
+  findTopicsForLesson: (lessonId) => {
+    topicActions.findTopicsForLesson(dispatch, lessonId)
+  },
+  clearTopics: () => {
+    topicActions.clearTopics(dispatch)
   }
-}
+})
 
 export default connect(stpm, dtpm)
 (TopicPills)

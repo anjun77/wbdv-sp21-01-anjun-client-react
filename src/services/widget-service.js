@@ -1,12 +1,10 @@
-// const TOPICS_URL = "https://localhost:8080/api/topics";
-// const WIDGETS_URL = "https://localhost:8080/api/widgets";
-//BASE_URL = "http://wbdv-server-java.herokuapp.com/api"
-const BASE_URL = "https://localhost:8080/api"
+//const BASE_URL = "https://localhost:8080/api"
+const BASE_URL = "https://wbdv-anjun-shao.herokuapp.com/api"
 
 export const createWidget=(topicId, widget) =>
     fetch(`${BASE_URL}/topics/${topicId}/widgets`, {
       method: "POST",
-      body: JSON.stringify({type: "HEADING", size: 1, text: "NEW WIDGET"}),
+      body: JSON.stringify(widget),
       headers: {
         'content-type': 'application/json'
       }
@@ -26,7 +24,6 @@ export const updateWidget = (wid, widget) =>
         'content-type': 'application/json'
       }
     }).then(response => {response.json()})
-
 
 
 export const findWidgetsForTopic = (tid) =>

@@ -1,35 +1,22 @@
 import React, {useState} from 'react'
 
-const ListWidget = ({widget, updateWidget, deleteWidget}) => {
-  const [widgetCache, setWidgetCache] = useState(widget)
-  const [editing, setEditing] = useState(false)
-
+const ListWidget = ({widget, setEditingWidget,editing}) => {
   return (
-      <>
+      <div>
         {
           editing &&
           <>
-            <i onClick={() => {
-              updateWidget(widgetCache.id, widgetCache)
-              setEditing(false)
-            }} className="fas fa-check float-right"/>
-
-            <i onClick={() => {
-              deleteWidget(widget)
-              setEditing(false)
-            }} className="fas fa-trash float-right"/>
-
-            <input onChange={(e) => setWidgetCache(
-                widgetCache => ({...widgetCache, ordered: e.target.checked}))}
-                   checked={widgetCache.ordered}
+            <input onChange={(e) => setEditingWidget(
+                widget => ({...widget, ordered: e.target.checked}))}
+                   checked={widget.ordered}
                    type="checkbox"/> Ordered
             <br/>
 
             List Items
-            <textarea onChange={(e) => setWidgetCache(
-                widgetCache => ({...widgetCache, text: e.target.value}))}
+            <textarea onChange={(e) => setEditingWidget(
+                widget => ({...widget, text: e.target.value}))}
                       rows={10}
-                      value={widgetCache.text}
+                      value={widget.text}
                       className="form-control">
                     </textarea>
 
@@ -38,9 +25,8 @@ const ListWidget = ({widget, updateWidget, deleteWidget}) => {
         {
           !editing &&
           <>
-            <i onClick={() => setEditing(true)} className="fas fa-cog"/>
             {
-              widgetCache.ordered &&
+              widget.ordered &&
               <ol>
                 {
                   widget.text.split("\n").map(item => {
@@ -65,7 +51,7 @@ const ListWidget = ({widget, updateWidget, deleteWidget}) => {
             }
           </>
         }
-      </>
+      </div>
   )
 }
 

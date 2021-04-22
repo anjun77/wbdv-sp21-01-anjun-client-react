@@ -1,17 +1,10 @@
-import {CREATE_MODULE, DELETE_MODULE, FIND_MODULES_FOR_COURSE, UPDATE_MODULE} from "../actions/module-actions";
+//import {CREATE_MODULE, DELETE_MODULE, FIND_MODULES_FOR_COURSE, UPDATE_MODULE} from "../actions/module-actions";
 const initialState = {
   modules: []
 }
 
 const moduleReducer = (state=initialState, action) => {
   switch (action.type) {
-    case "FIND_MODULES_FOR_COURSE":
-      return {
-        ...state,
-        modules: action.modules
-      }
-    default:
-      return state
     case "CREATE_MODULE":
       return {
         ...state,
@@ -19,6 +12,11 @@ const moduleReducer = (state=initialState, action) => {
           ...state.modules,
           action.module
         ]
+      }
+    case "FIND_MODULES_FOR_COURSE":
+      return {
+        ...state,
+        modules: action.modules
       }
     case "DELETE_MODULE":
       return {
@@ -42,6 +40,8 @@ const moduleReducer = (state=initialState, action) => {
           }
         })
       }
+    default:
+      return state
   }
 }
 export default moduleReducer

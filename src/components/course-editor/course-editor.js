@@ -23,9 +23,9 @@ const reducer = combineReducers({
 
 const store = createStore(reducer)
 
-const CourseEditor = ({history}) => {
+const CourseEditor = ({history, params}) => {
   const {layout, courseId, moduleId} = useParams();
-  const [courseTitle, setCourseTitle] = useState("")
+  const [courseTitle, setCourseTitle] = useState("Selected Course")
   useEffect(() => {
     courseService.findCourseById(courseId).then(
         (course) => setCourseTitle(course.title))
@@ -34,35 +34,44 @@ const CourseEditor = ({history}) => {
   return (
       <Provider store={store}>
         <div>
-          <h2 className="my-title">
-            <Link to={`/courses/${layout}`}>
-              <i className="fas fa-arrow-left"></i>
-            </Link>
-            {courseTitle}
-          </h2>
-          {/*<i onClick={() => history.goBack()}*/}
-          {/*   className="fas fa-times float-right"></i>*/}
-
-          <div className="editor-container">
+          <div id="my-editor">
             <div className="row">
-              <div className="col-3">
+              <div className="col-4 nav-left">
+                <div className="left-icon">
+                  <Link to={`/courses/${layout}`}>
+                    <i className="fas fa-arrow-left"></i>
+                  </Link>
+                </div>
+                <div className="left-text-container">
+                  <div className="left-text">
+                    <h4>{courseTitle}</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div className="nav nav-tabs col-8 nav-right">
+                <LessonTabs/>
+              </div>
+            </div>
+
+            <div className="row content">
+              <div className="col-4 left-part">
                 <ModuleList/>
               </div>
-              <div className="col-9">
-                <div className="row">
-                  <LessonTabs/>
-                </div>
-                <div className="row">
+
+              <div className="col-8 right-part">
+                <div className="content-right-part">
                   <TopicPills/>
                 </div>
-                <div className="row">
-                  <WidgetList/>
-                </div>
+                <WidgetList/>
+
               </div>
             </div>
           </div>
         </div>
-      </Provider>)
+
+      </Provider>
+  )
 }
 
 export default CourseEditor

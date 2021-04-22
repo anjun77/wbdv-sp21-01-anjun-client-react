@@ -18,26 +18,27 @@ code {
 
 .my-fa-plus {
   padding-left: 5px;
-  color: steelblue;
+  color: #78c4d4;
 }
 
 .my-fa-check {
   padding-left: 5px;
-  color: steelblue;
+  color: #78c4d4;
 }
 
 .my-fa-edit {
   padding-left: 10px;
   padding-top: 5px;
-  color: steelblue;
+  color: #99a8b2;
 }
 
 .my-fa-times {
   padding-left: 5px;
+  color: #78c4d4;
 }
 
 .my-title {
-  color: steelblue;
+  color: #cfdac8;
 }
 
 .list-group-item.active a{
@@ -49,4 +50,73 @@ code {
   padding-right: 15%;
 }
 
+.nav-left {
+  display: flex;
+  width: 100%;
+}
+
+.left-icon {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.left-text-container{
+  width: 60%;
+  padding: 0px;
+}
+
+.left-text{
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 150px;
+}
+
+.nav-right{
+  border-bottom: 0px;
+  display: flex;
+}
+
+.left-part {
+  padding: 20px;
+  background-color: #c1a1d3;
+}
+
+.right-part{
+  padding: 20px;
+  background-color: white;
+}
+
+.content-right-part{
+  display: flex;
+  height: 50px;
+  flex: 1;
+}
+
+.my-list-group-item {
+  background-color: white;
+  margin-top: 5px;
+  color: #c67ace;
+}
+
+.nav-item-link {
+  color: #f8f5f1;
+  text-decoration: none;
+  padding: 10px;
+}
+
+my-item:hover {
+  color: white;
+  opacity: 0.5;
+}
+
+.select-active {
+  background-color: #a799b7;
+}
 

@@ -29,8 +29,8 @@ const widgetReducer = (state=initialState, action) => {
       return {
         ...state,
         widgets: state.widgets.map(widget => {
-          if(widget.id === action.updatedWidget.id) {
-            return action.updatedWidget
+          if(widget.id === action.updateWidget.id) {
+            return action.updateWidget
           } else {
             return widget
           }
@@ -41,6 +41,10 @@ const widgetReducer = (state=initialState, action) => {
       return {
         ...state,
         widgets: action.widgets
+      }
+    case "CLEAR_WIDGET":
+      return {
+        initialState
       }
 
     default:
