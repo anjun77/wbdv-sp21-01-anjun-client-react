@@ -1,7 +1,7 @@
 // const TOPICS_URL = "https://localhost:8080/api/topics";
 // const WIDGETS_URL = "https://localhost:8080/api/widgets";
-const BASE_URL = "http://wbdv-server-java.herokuapp.com/api"
-//const BASE_URL = "https://localhost:8080/api"
+//BASE_URL = "http://wbdv-server-java.herokuapp.com/api"
+const BASE_URL = "https://localhost:8080/api"
 
 export const createWidget=(topicId, widget) =>
     fetch(`${BASE_URL}/topics/${topicId}/widgets`, {
