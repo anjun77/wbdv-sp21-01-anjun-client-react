@@ -14,11 +14,11 @@ export const createWidget = (dispatch, tid) => {
   }))
 }
 
-export const deleteWidget = (dispatch, widgetToDelete) =>
-    widgetService.deleteWidget(widgetToDelete.id)
+export const deleteWidget = (dispatch, wid) =>
+    widgetService.deleteWidget(wid)
     .then(status => dispatch({
       type: DELETE_WIDGET,
-      widgetToDelete: widgetToDelete
+      wid: wid
     }))
 
 export const updateWidget = (dispatch, wid, widget) =>

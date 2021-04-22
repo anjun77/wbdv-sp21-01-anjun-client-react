@@ -5,7 +5,7 @@ import ParagraphWidget from "./paragraph-widget";
 import ListWidget from "./list-widget"
 import ImageWidget from "./image-widget"
 import {connect} from "react-redux"
-import widgetActions from "../../actions/widget-actions";
+import widgetActions, {updateWidget} from "../../actions/widget-actions";
 
 const WidgetList = (
     {
@@ -17,10 +17,8 @@ const WidgetList = (
     }) => {
   const {topicId} = useParams();
   useEffect(() => {
-    if (topicId !== "undefined" || typeof topicId !== "undefined") {
-      findWidgetsForTopic(topicId)
-    }
-  }, [topicId])
+    findWidgetsForTopic(topicId)
+  }, [findWidgetsForTopic, topicId])
 
   return (
       <div>
@@ -29,8 +27,7 @@ const WidgetList = (
         <ul className="list-group">
           {
             widgets.map(widget =>
-                <li key={widget.id}
-                    className="list-group-item">
+                <li className="list-group-item" key={widget.id}>
                   {
                     widget.type === "HEADING" &&
                     <HeadingWidget
@@ -54,7 +51,6 @@ const WidgetList = (
                         deleteWidget={deleteWidget}
                         widget={widget}/>
                   }
-
                   {
                     widget.type === "IMAGE" &&
                     <ImageWidget
@@ -78,7 +74,13 @@ const stpm = (state) => {
 
 const dtpm = (dispatch) => {
   return {
-    createWidget: (topicId) => widgetActions.createWidget(dispatch, topicId),
+    createWidget: (topicId) => {
+      if (topicId !== undefined) {
+        widgetActions.createWidget(dispatch, topicId)
+      } else{
+        alert("Select a topic first")
+      }
+    },
     updateWidget: (wid, widget) => widgetActions.updateWidget(dispatch,
         wid, widget),
     deleteWidget: (widgetToDelete) => widgetActions.deleteWidget(dispatch,
